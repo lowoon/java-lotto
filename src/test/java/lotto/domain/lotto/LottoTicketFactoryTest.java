@@ -1,15 +1,16 @@
 package lotto.domain.lotto;
 
-import lotto.domain.count.Count;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static lotto.domain.count.CountTest.getCountFixture;
+import lotto.domain.count.Count;
 
-public class LottoTicketFactoryTest {
+class LottoTicketFactoryTest {
 
     @Test
-    void testLottoFactoryTest() {
-        Count count = getCountFixture();
+    @DisplayName("LottoTicketFactory는 money를 받아 lottoTicket을 발행")
+    void lottoTicketFactoryPublishsLottoTickets() {
+        Count count = new Count(10, 4);
         LottoTickets lottoTickets = LottoTicketFactory.publishLottoTickets(count);
     }
 }
