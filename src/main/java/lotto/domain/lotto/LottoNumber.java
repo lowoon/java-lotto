@@ -1,7 +1,5 @@
 package lotto.domain.lotto;
 
-import java.util.Objects;
-
 class LottoNumber implements Comparable<LottoNumber> {
 
     static final int MINIMUM_LOTTO_NUMBER = 1;
