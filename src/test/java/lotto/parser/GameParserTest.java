@@ -1,17 +1,16 @@
 package lotto.parser;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.Set;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 class GameParserTest {
 
     @Test
-    @DisplayName("gameParser는 문자열을 입력받아 정수로 변환")
+    @DisplayName("문자열을 입력받아 정수로 변환")
     void parseStringToInt() {
         String number = "1000";
         GameParser gameParser = new GameParser();

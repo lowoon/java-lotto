@@ -1,17 +1,14 @@
 package lotto.domain.result;
 
+import static org.assertj.core.api.Assertions.*;
+
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class RankTest {
 
@@ -35,7 +32,7 @@ class RankTest {
 
     @ParameterizedTest
     @MethodSource("getRank")
-    @DisplayName("각 rank는 몇개가 일치하는지 반환")
+    @DisplayName("각 Rank는 몇개가 일치하는지 반환")
     void getCountOfMatches(int counOfMatches, Rank rank) {
         assertThat(rank.getCountOfMatches()).isEqualTo(counOfMatches);
     }
@@ -70,14 +67,14 @@ class RankTest {
     }
 
     @Test
-    @DisplayName("rank 반환시 일치하는 개수가 6개를 초과하면 예외 발생")
+    @DisplayName("Rank 반환시 일치하는 개수가 6개를 초과하면 예외 발생")
     void rankValueOfCountOverSixThrowsException() {
         assertThatThrownBy(() -> Rank.valueOf(10, false))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
-    @DisplayName("rank 반환시 일치하는 개수가 0개 미만이면 예외 발생")
+    @DisplayName("Rank 반환시 일치하는 개수가 0개 미만이면 예외 발생")
     void rankValueOfCountUnderZeroThrowsException() {
         assertThatThrownBy(() -> Rank.valueOf(-1, false))
                 .isInstanceOf(IllegalArgumentException.class);
