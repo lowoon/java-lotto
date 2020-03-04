@@ -42,18 +42,12 @@ class LottoTicketsTest {
     @Test
     @DisplayName("수동과 자동 개수에 맞게 생산되 LottoTickets를 합침")
     void createLottoTicketsBasedOnCount() {
-        List<Set<Integer>> firstLottoTicketNumbers = Stream.of(firstLottoNumbers, secondLottoNumbers, thirdLottoNumbers)
-                .collect(Collectors.toList());
-        LottoTickets firstLottoTickets = LottoTickets.publishLottoTickets(firstLottoTicketNumbers);
+        LottoTickets firstLottoTickets = getLottoTickets(firstLottoNumbers, secondLottoNumbers, thirdLottoNumbers);
 
-        List<Set<Integer>> secondLottoTicketNumbers = Stream.of(fourthLottoNumbers, fifthLottoNumbers, missLottoNumbers)
-                .collect(Collectors.toList());
-        LottoTickets secondLottoTickets = LottoTickets.publishLottoTickets(secondLottoTicketNumbers);
+        LottoTickets secondLottoTickets = getLottoTickets(fourthLottoNumbers, fifthLottoNumbers, missLottoNumbers);
 
-        List<Set<Integer>> targetLottoTicketList = Stream.of(firstLottoNumbers, secondLottoNumbers, thirdLottoNumbers,
-                        fourthLottoNumbers, fifthLottoNumbers, missLottoNumbers)
-                .collect(Collectors.toList());
-        LottoTickets targetLottoTickets = LottoTickets.publishLottoTickets(targetLottoTicketList);
+        LottoTickets targetLottoTickets = getLottoTickets(firstLottoNumbers, secondLottoNumbers, thirdLottoNumbers,
+                fourthLottoNumbers, fifthLottoNumbers, missLottoNumbers);
 
         LottoTickets totalLottoTickets = LottoTickets.createFrom(firstLottoTickets, secondLottoTickets);
 
@@ -63,12 +57,17 @@ class LottoTicketsTest {
     @Test
     @DisplayName("LottoTickets는 WinningLotto를 받아서 결과를 생성")
     void createLottoResultsWithWinningLotto() {
-        List<Set<Integer>> lottoTicketNumbers = Stream.of(firstLottoNumbers, secondLottoNumbers, thirdLottoNumbers,
-                        fourthLottoNumbers, fifthLottoNumbers, missLottoNumbers)
-                .collect(Collectors.toList());
-        LottoTickets lottoTickets = LottoTickets.publishLottoTickets(lottoTicketNumbers);
+        LottoTickets lottoTickets = getLottoTickets(firstLottoNumbers, secondLottoNumbers, thirdLottoNumbers,
+                fourthLottoNumbers, fifthLottoNumbers, missLottoNumbers);
 
         WinningLotto winningLotto = new WinningLotto(firstLottoNumbers, 7);
         assertThat(lottoTickets.getLottoResults(winningLotto)).isNotNull();
+    }
+
+    @SafeVarargs
+    private final LottoTickets getLottoTickets(Set<Integer>... lottoNumbers) {
+        List<Set<Integer>> lottoTicketNumbers = Stream.of(lottoNumbers)
+                .collect(Collectors.toList());
+        return LottoTickets.publishLottoTickets(lottoTicketNumbers);
     }
 }
