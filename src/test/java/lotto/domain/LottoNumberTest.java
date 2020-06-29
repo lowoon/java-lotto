@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import lotto.exception.InvalidLottoNumberException;
 
 class LottoNumberTest {
-
     @Test
     @DisplayName("숫자에 맞는 로또넘버")
     void valueOf() {
