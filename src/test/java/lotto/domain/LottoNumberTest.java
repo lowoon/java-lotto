@@ -9,7 +9,7 @@ import lotto.exception.InvalidLottoNumberException;
 
 class LottoNumberTest {
     @Test
-    @DisplayName("숫자에 맞는 로또넘버")
+    @DisplayName("숫자에 맞는 로또 번호")
     void valueOf() {
         LottoNumber lottoNumber = LottoNumber.valueOf(1);
 
@@ -17,18 +17,18 @@ class LottoNumberTest {
     }
 
     @Test
-    @DisplayName("최소 숫자보다 작은 로또넘버")
+    @DisplayName("로또 번호가 최소값보다 작은 경우")
     void valueOfUnderMin() {
         assertThatThrownBy(() -> LottoNumber.valueOf(0))
             .isInstanceOf(InvalidLottoNumberException.class)
-            .hasMessage("로또 넘버는 1보다 작을 수 없습니다.");
+            .hasMessage("로또 번호는 1보다 작을 수 없습니다.");
     }
 
     @Test
-    @DisplayName("최대 숫자보다 큰 로또넘버")
+    @DisplayName("로또 번호가 최대값보다 큰 경우")
     void valueOfOverMax() {
         assertThatThrownBy(() -> LottoNumber.valueOf(46))
             .isInstanceOf(InvalidLottoNumberException.class)
-            .hasMessage("로또 넘버는 45보다 클 수 없습니다.");
+            .hasMessage("로또 번호는 45보다 클 수 없습니다.");
     }
 }

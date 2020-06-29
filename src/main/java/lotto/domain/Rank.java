@@ -2,7 +2,7 @@ package lotto.domain;
 
 import java.util.Arrays;
 
-import lotto.exception.InvalidCountOfMatch;
+import lotto.exception.InvalidCountOfMatchException;
 
 public enum Rank {
     FIRST(6, false),
@@ -11,6 +11,9 @@ public enum Rank {
     FOURTH(4, false),
     FIFTH(3, false),
     NONE(0, false);
+
+    private static final int MAX = 6;
+    private static final int MIN = 0;
 
     private final int countOfMatch;
     private final boolean matchBonus;
@@ -32,11 +35,11 @@ public enum Rank {
     }
 
     private static void validate(int countOfMatch) {
-        if (countOfMatch > 6) {
-            throw new InvalidCountOfMatch("일치한 로또 넘버가 6보다 클 수 없습니다.");
+        if (countOfMatch > MAX) {
+            throw new InvalidCountOfMatchException("일치한 로또 번호가 " + MAX + "보다 클 수 없습니다.");
         }
-        if (countOfMatch < 0) {
-            throw new InvalidCountOfMatch("일치한 로또 넘버가 0보다 작을 수 없습니다.");
+        if (countOfMatch < MIN) {
+            throw new InvalidCountOfMatchException("일치한 로또 번호가 " + MIN + "보다 작을 수 없습니다.");
         }
     }
 

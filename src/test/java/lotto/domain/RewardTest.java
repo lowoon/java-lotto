@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -11,6 +12,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 class RewardTest {
     @ParameterizedTest
     @MethodSource("createRankAndReward")
+    @DisplayName("순위에 맞는 상금")
     void of(int countOfMatch, boolean matchBonus, int expected) {
         assertThat(Reward.of(countOfMatch, matchBonus)).isEqualTo(expected);
     }
