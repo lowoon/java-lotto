@@ -19,7 +19,6 @@ public class LottoNumber {
                 cache[i] = new LottoNumber(i);
             }
         }
-
     }
 
     public static LottoNumber valueOf(int number) {

@@ -1,30 +1,35 @@
 package lotto.domain;
 
+import java.util.HashMap;
 import java.util.Map;
 
-public enum Rank {
-    FIRST(6, false, 2_000_000_000),
-    SECOND(5, true, 30_000_000),
-    THIRD(5, false, 1_500_000),
-    FOURTH(4, false,50_000),
-    FIFTH(3, false, );
+public class Reward {
+    private static final Map<Rank, Integer> rewards;
 
-    private final int matchCount;
-    private final boolean matchBonus;
+    static {
+        rewards = new HashMap<>();
+        rewards.putIfAbsent(Rank.FIRST, 2_000_000_000);
+        rewards.putIfAbsent(Rank.SECOND, 30_000_000);
+        rewards.putIfAbsent(Rank.THIRD, 1_500_000);
+        rewards.putIfAbsent(Rank.FOURTH, 50_000);
+        rewards.putIfAbsent(Rank.FIFTH, 5_000);
+        rewards.putIfAbsent(Rank.NONE, 0);
+    }
+
+    private final Rank rank;
     private final int reward;
 
-    Rank(int matchCount, boolean matchBonus, int reward) {
-        this.matchCount = matchCount;
-        this.matchBonus = matchBonus;
+    private Reward(Rank rank, int reward) {
+        this.rank = rank;
         this.reward = reward;
     }
 
-    public static int rewardOf(int matchCount, boolean matchBonus) {
-        return
+    public static int of(int matchCount, boolean matchBonus) {
+        return rewards.get(Rank.from(matchCount, matchBonus));
     }
 
-    public int getMatchCount() {
-        return matchCount;
+    public Rank getRank() {
+        return rank;
     }
 
     public int getReward() {

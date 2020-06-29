@@ -1,41 +1,50 @@
 package lotto.domain;
 
-import java.util.Objects;
+import java.util.Arrays;
 
-public class Rank {
-    private final int matchCount;
+import lotto.exception.InvalidCountOfMatch;
+
+public enum Rank {
+    FIRST(6, false),
+    SECOND(5, true),
+    THIRD(5, false),
+    FOURTH(4, false),
+    FIFTH(3, false),
+    NONE(0, false);
+
+    private final int countOfMatch;
     private final boolean matchBonus;
 
-    private Rank(int matchCount, boolean matchBonus) {
-        this.matchCount = matchCount;
+    Rank(int countOfMatch, boolean matchBonus) {
+        this.countOfMatch = countOfMatch;
         this.matchBonus = matchBonus;
     }
 
-    public static Rank from(int matchCount, boolean matchBonus) {
-        return new Rank(matchCount, BonusMatcher.matchBonus(matchCount, matchBonus));
+    public static Rank from(int countOfMatch, boolean matchBonus) {
+        validate(countOfMatch);
+        boolean actual = BonusMatcher.matchBonus(countOfMatch, matchBonus);
+
+        return Arrays.stream(values())
+            .filter(rank -> rank.countOfMatch == countOfMatch)
+            .filter(rank -> rank.matchBonus == actual)
+            .findFirst()
+            .orElse(NONE);
     }
 
-    public int getMatchCount() {
-        return matchCount;
+    private static void validate(int countOfMatch) {
+        if (countOfMatch > 6) {
+            throw new InvalidCountOfMatch("일치한 로또 넘버가 6보다 클 수 없습니다.");
+        }
+        if (countOfMatch < 0) {
+            throw new InvalidCountOfMatch("일치한 로또 넘버가 0보다 작을 수 없습니다.");
+        }
     }
 
-    public boolean matchesBonus() {
+    public int getCountOfMatch() {
+        return countOfMatch;
+    }
+
+    public boolean matchBonus() {
         return matchBonus;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        Rank rank = (Rank)o;
-        return matchCount == rank.matchCount &&
-            matchBonus == rank.matchBonus;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(matchCount, matchBonus);
     }
 }
