@@ -16,23 +16,7 @@ public class Reward {
         rewards.putIfAbsent(Rank.NONE, 0);
     }
 
-    private final Rank rank;
-    private final int reward;
-
-    private Reward(Rank rank, int reward) {
-        this.rank = rank;
-        this.reward = reward;
-    }
-
     public static int of(int matchCount, boolean matchBonus) {
         return rewards.get(Rank.from(matchCount, matchBonus));
-    }
-
-    public Rank getRank() {
-        return rank;
-    }
-
-    public int getReward() {
-        return reward;
     }
 }
