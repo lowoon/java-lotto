@@ -1,5 +1,8 @@
 package lotto.domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -29,12 +32,28 @@ public class Lotto {
             .collect(Collectors.toSet()));
     }
 
+    public int countOfMatch(WinningLotto winningLotto) {
+        return (int)lotto.stream()
+            .filter(winningLotto::contains)
+            .count();
+    }
+
+    public boolean matchBonus(WinningLotto winningLotto) {
+        return lotto.contains(winningLotto.getBonusNumber());
+    }
+
     public boolean contains(LottoNumber lottoNumber) {
         return lotto.contains(lottoNumber);
     }
 
+    public List<LottoNumber> listOfSortedLottoNumbers() {
+        List<LottoNumber> lottoNumbers = new ArrayList<>(lotto);
+        Collections.sort(lottoNumbers);
+        return Collections.unmodifiableList(lottoNumbers);
+    }
+
     public Set<LottoNumber> getLotto() {
-        return lotto;
+        return Collections.unmodifiableSet(new HashSet<>(lotto));
     }
 
     @Override

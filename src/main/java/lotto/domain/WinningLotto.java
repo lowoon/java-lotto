@@ -3,8 +3,8 @@ package lotto.domain;
 import lotto.exception.InvalidBonusNumberException;
 
 public class WinningLotto {
-    private Lotto lotto;
-    private LottoNumber bonusNumber;
+    private final Lotto lotto;
+    private final LottoNumber bonusNumber;
 
     private WinningLotto(Lotto lotto, LottoNumber bonusNumber) {
         validate(lotto, bonusNumber);
@@ -20,6 +20,10 @@ public class WinningLotto {
 
     public static WinningLotto of(Lotto lotto, LottoNumber lottoNumber) {
         return new WinningLotto(lotto, lottoNumber);
+    }
+
+    public boolean contains(LottoNumber lottoNumber) {
+        return lotto.contains(lottoNumber);
     }
 
     public Lotto getLotto() {

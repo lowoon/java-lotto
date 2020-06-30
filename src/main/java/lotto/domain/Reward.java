@@ -16,7 +16,13 @@ public class Reward {
         rewards.putIfAbsent(Rank.NONE, 0);
     }
 
-    public static int of(int matchCount, boolean matchBonus) {
-        return rewards.get(Rank.from(matchCount, matchBonus));
+    private final Map<Rank, Integer> countOfRewards;
+
+    private Reward(Map<Rank, Integer> countOfRewards) {
+        this.countOfRewards = countOfRewards;
+    }
+
+    public static Reward from(Map<Rank, Integer> countOfRewards) {
+        return new Reward(countOfRewards);
     }
 }
