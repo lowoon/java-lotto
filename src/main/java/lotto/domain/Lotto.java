@@ -29,6 +29,10 @@ public class Lotto {
             .collect(Collectors.toSet()));
     }
 
+    public boolean contains(LottoNumber lottoNumber) {
+        return lotto.contains(lottoNumber);
+    }
+
     public Set<LottoNumber> getLotto() {
         return lotto;
     }
