@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class Lottos {
@@ -19,17 +20,17 @@ public class Lottos {
     }
 
     public Map<Rank, Integer> countOfRank(WinningLotto winningLotto) {
-        Map<Rank, Integer> countOfRewards = Arrays.stream(Rank.values())
-            .collect(Collectors.toMap(rank -> rank, rank -> 0));
+        Map<Rank, Integer> countOfRanks = Arrays.stream(Rank.values())
+            .collect(Collectors.toMap(rank -> rank, rank -> 0, (v1, v2) -> v1, TreeMap::new));
 
         for (Lotto lotto : lottos) {
             int countOfMatch = lotto.countOfMatch(winningLotto);
             boolean matchBonus = lotto.matchBonus(winningLotto);
-            countOfRewards.computeIfPresent(Rank.from(countOfMatch, matchBonus),
+            countOfRanks.computeIfPresent(Rank.from(countOfMatch, matchBonus),
                 (key, value) -> value + 1);
         }
 
-        return countOfRewards;
+        return countOfRanks;
     }
 
     public List<Lotto> getLottos() {

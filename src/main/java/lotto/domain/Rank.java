@@ -43,6 +43,10 @@ public enum Rank {
         }
     }
 
+    public boolean isSecond() {
+        return this == SECOND;
+    }
+
     public int getCountOfMatch() {
         return countOfMatch;
     }

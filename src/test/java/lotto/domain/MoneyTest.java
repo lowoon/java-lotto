@@ -9,8 +9,16 @@ class MoneyTest {
     @Test
     @DisplayName("구매 금액에 맞는 로또 개수")
     void countOfLotto() {
-        Money money = Money.from("1000");
+        Money money = Money.from(1000);
 
         assertThat(money.countOfLotto()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("구매 금액에 맞는 수익률")
+    void calculateProfit() {
+        Money money = Money.from(1000);
+
+        assertThat(money.calculateProfit(10000)).isEqualTo(900);
     }
 }
